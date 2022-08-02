@@ -52,9 +52,12 @@ function wmwpaa_block()
  */
 function wmwpaa_frontend()
 {
-  wp_enqueue_script('createjs', 'https://code.createjs.com/1.0.0/createjs.min.js', [], ESS_BLOCKS_VERSION, true);
-  wp_enqueue_script('wmwpaa-front', plugins_url("/dist/js/wmwpaa-front.js", __FILE__), ['createjs'], ESS_BLOCKS_VERSION, true);
 
-  // styles not yet ready. Maybe they'll be included in .js files since they are tiny.
-  //wp_enqueue_style('wmwpaa-front', plugins_url("/dist/css/wmwpaa-front.css", __FILE__), [], ESS_BLOCKS_VERSION);
+  if (is_singular() || is_page()) {
+    $id = get_the_ID();
+    if (has_block('wmwpaa/block', $id)) {
+      wp_enqueue_script('createjs', 'https://code.createjs.com/1.0.0/createjs.min.js', [], ESS_BLOCKS_VERSION, true);
+      wp_enqueue_script('wmwpaa-front', plugins_url("/dist/js/wmwpaa-front.js", __FILE__), ['createjs'], ESS_BLOCKS_VERSION, true);
+    }
+  }
 }
