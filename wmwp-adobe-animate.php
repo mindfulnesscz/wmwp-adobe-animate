@@ -2,13 +2,13 @@
 /*
 Plugin Name:      WMWP Adobe Animate Integration
 Description:      Gutenberg plugin for inserting Adobe Animate exported javascript animations as gutenberg blocks.
-Author:           Webmind digital
+Author:           Webmind Agency
 Version:          0.1.1
-Author URI:       https://webmind.digital
+Author URI:       https://webmind.agency
 Text Domain:      wmwp_adobe_animate
 */
 
-/* Copyright 2022 Webmind
+/* Copyright 2023 Webmind
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, please find it at https://webmind.digital/licenses/wmwp-webmind-license
+along with this program; if not, please find it at https://webmind.agency/licenses/wmwp-webmind-license
 */
 
 
@@ -38,10 +38,7 @@ add_action('enqueue_block_editor_assets', 'wmwpaa_block');
 function wmwpaa_block()
 {
   wp_enqueue_script('wmwpaa-block', plugins_url("/dist/js/wmwpaa-block.js", __FILE__), ['wp-blocks', 'wp-editor', 'wp-element', 'createjs'], ESS_BLOCKS_VERSION);
-  wp_enqueue_script('createjs', 'https://code.createjs.com/1.0.0/createjs.min.js', [], ESS_BLOCKS_VERSION);
-
-  // styles not yet ready. Maybe they'll be included in .js files since they are tiny.
-  //wp_enqueue_style('wmwpaa-admin', plugins_url("/dist/css/wmwpaa-admin.css", __FILE__), [], ESS_BLOCKS_VERSION);
+  wp_enqueue_script('createjs', 'https://code.createjs.com/1.0.0/createjs.min.js', [], WMWP_ADOBE_ANIMATE_VERSION);
 }
 
 
@@ -56,8 +53,8 @@ function wmwpaa_frontend()
   if (is_singular() || is_page()) {
     $id = get_the_ID();
     if (has_block('wmwpaa/block', $id)) {
-      wp_enqueue_script('createjs', 'https://code.createjs.com/1.0.0/createjs.min.js', [], ESS_BLOCKS_VERSION, true);
-      wp_enqueue_script('wmwpaa-front', plugins_url("/dist/js/wmwpaa-front.js", __FILE__), ['createjs'], ESS_BLOCKS_VERSION, true);
+      wp_enqueue_script('createjs', 'https://code.createjs.com/1.0.0/createjs.min.js', [], WMWP_ADOBE_ANIMATE_VERSION, true);
+      wp_enqueue_script('wmwpaa-front', plugins_url("/dist/js/wmwpaa-front.js", __FILE__), ['createjs'], WMWP_ADOBE_ANIMATE_VERSION, true);
     }
   }
 }
